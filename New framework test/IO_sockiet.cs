@@ -44,12 +44,10 @@ namespace DataLab
             {
                 parent = parent_ref;
                 create_button(sockiet_pos);
-                //button.Click += new RoutedEventHandler(In_sockiet_click);
                 button.MouseLeftButtonDown += new MouseButtonEventHandler(In_sockiet_click);
                 function_ref = func_ref;
             }
 
-            //unnessesary function i guess
             public Button create_button(Block_info position)
             {
                button = Fabricator.Create_Button(position);
@@ -67,15 +65,9 @@ namespace DataLab
                 }
             }
 
-            public void debug()
-            {
-                Console.WriteLine("debug in");
-            }
-
             //Linking button calls main link funtion
             void In_sockiet_click(object sender, EventArgs e)
             {
-                //Disconnect_link();
                 next_sockiet = this;
                 Link_objects();
             }
@@ -101,11 +93,9 @@ namespace DataLab
             public dynamic parent;
             public Button button;
 
-           // public Line line;
             public double X;
             public double Y;
 
-            //public delegate void parent_function(dynamic input);
             public input_sockiet.parent_function function_ref;
 
             public dynamic link_ref;
@@ -114,11 +104,9 @@ namespace DataLab
             {
                 parent = parent_ref;
                 create_button(sockiet_pos);
-              //  button.Click += new RoutedEventHandler(Out_sockiet_click);
                 button.MouseLeftButtonDown += new MouseButtonEventHandler(Out_sockiet_click);
             }
 
-            //unnessesary function i guess
             public Button create_button(Block_info position)
             {
                button = Fabricator.Create_Button(position);
@@ -126,7 +114,6 @@ namespace DataLab
                return button;
             }
 
-            //MAIN FUNCTION that will call function referenced in input block!!!!!!!!!!!!!!!!!!!!!!!!!
             public void Call_next(dynamic input)
             {
                 if(link_ref!=null)
@@ -145,15 +132,9 @@ namespace DataLab
                 }
             }
 
-            public void debug()
-            {
-                Console.WriteLine("debug out");
-            }
-
             //Linking button calls main link funtion
             void Out_sockiet_click(object sender, EventArgs e)
             {
-                //Disconnect_link();
                 previous_sockiet = this;
                 Link_objects();
             }

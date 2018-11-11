@@ -8,12 +8,7 @@ namespace DataLab
 {
     interface ISockiet
     {
-
         void Disconnect();
-
         void Connect();
-
-
-
     }
 }

@@ -29,19 +29,15 @@ namespace DataLab
 
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        public class Split_string : Basic_block
+        public class Split_string_by_commas : Basic_block
         {
-            //public output_sockiet output_io;
-            //public input_sockiet input_io;
             protected input_sockiet.parent_function funct_ref;
 
             /// <summary>
             /// Block constructor, the most important place in the whole code: decodes what features are needed in a block.
             /// </summary>
-            public Split_string(string input) : base(input, block_type.Processing)
+            public Split_string_by_commas(string input) : base(input, block_type.Processing)
             {
-                // groupBox.Header = "Add string " + " Component";
-
                 output_io = new output_sockiet(this, info.Output_info);
                 funct_ref = new input_sockiet.parent_function(Input_function);
                 input_io = new input_sockiet(this, info.Input_info, ref funct_ref);
@@ -53,7 +49,6 @@ namespace DataLab
 
             public void Input_function(dynamic input)
             {
-                // Console.WriteLine(input);
                 string[] pieces = input.Split(',');
                 foreach (string piece in pieces)
                 {
@@ -87,19 +82,16 @@ namespace DataLab
 
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        public class Split_data : Basic_block
+        public class Split_data_flow : Basic_block
         {
-            //public output_sockiet output_io;
-            //public input_sockiet input_io;
             protected input_sockiet.parent_function funct_ref;
             public output_sockiet output_io2;
+
             /// <summary>
             /// Block constructor, the most important place in the whole code: decodes what features are needed in a block.
             /// </summary>
-            public Split_data(string input) : base(input, block_type.Flow)
+            public Split_data_flow(string input) : base(input, block_type.Flow)
             {
-                // groupBox.Header = "Add string " + " Component";
-
                 output_io = new output_sockiet(this, info.Output_info);
                 output_io2 = new output_sockiet(this, info.Output_info2);
 
@@ -113,7 +105,6 @@ namespace DataLab
 
             public void Input_function(dynamic input)
             {
-                // Console.WriteLine(input);
                 Output_function(input);
             }
 
@@ -128,8 +119,6 @@ namespace DataLab
                     output_io2.Call_next(input);
                 }
             }
-
-
 
             public override void Render(double X, double Y)
             {
@@ -163,7 +152,6 @@ namespace DataLab
             public While_Loop(string input) : base(input, block_type.Flow)
             {
                 loops = new DataProcessing.Flow.Loops();
-                //  groupBox.Header = "While loop " + " Component";
             }
 
             public void Input_function(string input)
@@ -180,11 +168,8 @@ namespace DataLab
             }
 
             public void Output_function(string input)
-            {/*
-                if (next_block != null)
-                {
-                    next_block.Input_function(input);
-                }*/
+            {
+
             }
 
         }
@@ -194,8 +179,6 @@ namespace DataLab
         public class Add_string : Basic_block
         {
             private DataProcessing.Processing.Math math;
-            //public output_sockiet output_io;
-            //public input_sockiet input_io;
             protected input_sockiet.parent_function funct_ref;
 
             /// <summary>
@@ -205,7 +188,6 @@ namespace DataLab
             {
 
                 math = new DataProcessing.Processing.Math();
-                // groupBox.Header = "Add string " + " Component";
 
                 output_io = new output_sockiet(this, info.Output_info);
                 funct_ref = new input_sockiet.parent_function(Input_function);
@@ -218,7 +200,6 @@ namespace DataLab
 
             public void Input_function(dynamic input)
             {
-                // Console.WriteLine(input);
                 Output_function(math.CustomOperation(input));
             }
 

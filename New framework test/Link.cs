@@ -71,7 +71,6 @@ namespace DataLab
 
             line_con.lineB = new Line();
             line_con.lineB.Visibility = Visibility.Visible;
-            //SolidColorBrush redBrush = new SolidColorBrush();
             redBrush.Color = Colors.Red;
             line_con.lineB.StrokeThickness = 4;
             line_con.lineB.Stroke = redBrush;
@@ -79,7 +78,6 @@ namespace DataLab
 
             line_con.lineC = new Line();
             line_con.lineC.Visibility = Visibility.Visible;
-            //SolidColorBrush redBrush = new SolidColorBrush();
             redBrush.Color = Colors.Red;
             line_con.lineC.StrokeThickness = 4;
             line_con.lineC.Stroke = redBrush;
@@ -132,8 +130,6 @@ namespace DataLab
 
             output_ref.link_ref = null;
             input_ref.link_ref = null;
-
-
 
             Console.WriteLine(parent);
 

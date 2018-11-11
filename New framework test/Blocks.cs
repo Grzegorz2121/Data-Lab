@@ -38,7 +38,6 @@ namespace DataLab
 
     public class Info
     {
-        //Different buttons that i use for now, they will be dynamic next time
         public Block_info Move_info;
         public Block_info Delete_info;
         public Block_info Input_info;
@@ -49,8 +48,6 @@ namespace DataLab
 
         public Info()
         {
-            //Info for all buttons, it's easier to change them here than in code, can i store them in something that will be more convinient?
-            // I need to initialisate it in every block now :( and static clases can't have variables boooo
             Move_info.pos_X = 5;
             Move_info.pos_Y = 5;
             Move_info.width_X = 50;
@@ -97,28 +94,14 @@ namespace DataLab
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public static class Block_Info_class
-    {
-        //Now that you know my name, country and city what are you going to do? I'm just protecting myself from hackers and pirates
-        //It will be used in compiled program, it's useless there because everybody can change it, but if you got it directly from me ... this means
-        // i trust you :P (I HOPE optimaliser wont delete it!)
-        static string author = "CODE made by Grzegorz Machura (Grzegorz2121, Poland, Dolnyśląsk, I LO w Jaworze)";  
-    }
-
-
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /// <summary>
-    /// Handy class for creating buttons canvises and misc GROUPBOX WILL BE REMOVED it's not nessesary and it's confusing to work with.
-    /// </summary>
     public static class Fabricator
     {
 
         public static void FindConnectionPoint(Thickness canvas_pos, out Point output)
         {
             output = new Point();
-            output.X = canvas_pos.Left; //+ button.Margin.Left + button.Width / 2;
-            output.Y = canvas_pos.Top; //+ button.Margin.Top + button.Height / 2;
+            output.X = canvas_pos.Left;
+            output.Y = canvas_pos.Top;
         }
 
         public static Button Create_Button(int pos_X, int pos_Y, int width_X, int height_Y, string text)
@@ -171,29 +154,20 @@ namespace DataLab
 
     public partial class Blocks
     {
-        //Used in block indentification in order to assign nessesary buttons
         public enum block_type {Input, Output, Processing, Flow};
 
         public class Basic_block
         {
-            //variable for global GC
             public bool is_ded = false;
-            //variable for move feature
             public bool is_movable = true;
-
-            //They should be replaced someday... it's handled by io_sockiets now but i use them i want to delete those
-           // protected dynamic previous_block;
-           // protected dynamic next_block;
             
             public dynamic output_ref;
 
-            //name of a block
             public string name;
 
             public GroupBox groupBox;
             public Canvas canvas;
 
-            //I need to make those variables dynamic -> we don't need pick output in output block that already consumes data
             public Button Delete_button;
             public Button Move_button;
             public Button Read_button;
@@ -202,7 +176,6 @@ namespace DataLab
 
             public Info info;
 
-            //positions of main groupbox, it will be used for lines that connect io_sockiets
             public double Main_X = 0;
             public double Main_Y = 0;
 
@@ -212,26 +185,20 @@ namespace DataLab
             /// //////////////////////////////////////////////////
             /* CONSTRUCTOR */
 
-            ///Construction -> this is where we create canvas, basic move, delete butttons and initilate misc things for special features
             public Basic_block(string input_name, block_type b_type)
             {
                 name = input_name;
 
-                info = new Info();//I HATE IT i don't wanna to initialisate it :(
-
-               // groupBox = Fabricator.Create_GroupBox(100, 100, 100, 150, "Block");
-               // MainGrid_ref.Children.Add(groupBox);
+                info = new Info();
 
                 canvas = new Canvas();
                 canvas.VerticalAlignment = VerticalAlignment.Top;
                 canvas.HorizontalAlignment = HorizontalAlignment.Left;
                 canvas.Width = 100;
                 canvas.Height = 100;
-                //groupBox.Content = canvas;
 
                 MainGrid_ref.Children.Add(canvas);
 
-                //Ahhh nice and readable button constructors :)
                 Move_button = Fabricator.Create_Button(info.Move_info);
                 Move_button.Click += new RoutedEventHandler(Move_button_click);
                 canvas.Children.Add(Move_button);
@@ -240,40 +207,21 @@ namespace DataLab
                 Delete_button.Click += new RoutedEventHandler(Delete_button_click);
                 canvas.Children.Add(Delete_button);
                 
-                //////////////////////////
-
-                /*Obsolete section! Used previously to show read, write and pick input,output buttons, everything in hadndled by ioblocks now, it's obsolete now*/
-                // need to be replaced with better button api
-
                 if (b_type==block_type.Input)
                 {
-                    //Read_button = Fabricator.Create_Button(5, 70, 50, 20, "Read");
-                    
                     Read_button = Fabricator.Create_Button(info.Read_info);
                     canvas.Children.Add(Read_button);
                     Read_button.Click += new RoutedEventHandler(Read_button_click);
-                    
-                   
-                    
                 }
                 
                 if (b_type == block_type.Output || b_type == block_type.Processing || b_type == block_type.Flow)
                 {
-                    //Pick_input_button = Fabricator.Create_Button(5, 95, 50, 20, "Pick input");
-                    /*
-                    Pick_input_button = Fabricator.Create_Button(info.Input_info);
-                    canvas.Children.Add(Pick_input_button);
-                    Pick_input_button.Click += new RoutedEventHandler(Pick_input_button_click);
-                    */
+
                 }
                 
                 if (b_type == block_type.Input || b_type == block_type.Processing || b_type == block_type.Flow)
                 {
-                    //Pick_output_button = Fabricator.Create_Button(5, 125, 50, 20, "Pick output");
-                    /*
-                    Pick_output_button = Fabricator.Create_Button(info.Output_info);
-                    canvas.Children.Add(Pick_output_button);
-                    Pick_output_button.Click += new RoutedEventHandler(Pick_output_button_click);*/
+
                 }
 
                 //////////////////////////
@@ -289,7 +237,6 @@ namespace DataLab
                 if (is_movable == true)
                 {
                     Point mouse_loc = Mouse.GetPosition(Application.Current.MainWindow);
-                    //Thickness group_loc = groupBox.Margin;
                     Thickness group_loc = canvas.Margin;
 
                     if (mouse_loc.X > 0 && mouse_loc.Y > 0)
@@ -319,7 +266,7 @@ namespace DataLab
 
             public virtual void Read_button_click(object sender, EventArgs e)
             {
-               //VIRTUAL
+
             }
             
             //Button for deleting object, signaling main GC timer to delete it and object on main grid

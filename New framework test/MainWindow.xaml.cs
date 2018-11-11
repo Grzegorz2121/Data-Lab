@@ -17,19 +17,12 @@ using DataLab;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-//ing static New_framework_test.Input_blocks;
 using static DataLab.Blocks;
 using System.Reflection;
 using static DataLab.Settings;
 
 namespace DataLab
 {
-    /*
-
-        THIS IS MAIN PROGRAM SECTION, I"M STILL WORKING AT IT, LOOKING FOR SUGGESTIONS FOR FEW THINGS BUT I DON"T WANNA CHANGE EVERYTINHG I LIKE MY BLOCK and io for now!
-
-    */
-   
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
@@ -43,18 +36,17 @@ namespace DataLab
 
         public enum block_type { Input, Output, Processing, Flow };
 
-        public static List<dynamic> block_list = new List<dynamic>(); // MAIN BLOCK LIST!
+        public static List<dynamic> block_list = new List<dynamic>();
         public static List<dynamic> link_list = new List<dynamic>();
 
         public static Window MainWindow_ref;
         public static Grid MainGrid_ref;
 
-        public string application_path = Assembly.GetExecutingAssembly().CodeBase;//I used it to implement pictures but i'm to lazy now (it worked but it was ugly because of group box)
+        public string application_path = Assembly.GetExecutingAssembly().CodeBase;
 
-        public int name = 0; //Name of Block to spawn (to recognise them) I NEED TO DO IT BETTER!
+        public int name = 0;
         
         public static string selected_block;
-
 
         public MainWindow()
         {
@@ -63,7 +55,6 @@ namespace DataLab
             MainWindow_ref = MainWindow1;
             MainGrid_ref = MainGrid;
 
-            //timer for GC and move , TO DO change names 
             Create_timer(10, dispatcherTimer_Tick);
             Create_timer(100, GC_timer2_Tick);
 
@@ -80,17 +71,13 @@ namespace DataLab
 
         }
 
-        //Spawns blocks and adds them to list in order to activate their move command and dispose then and ect
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             dynamic ob = Activator.CreateInstance(Type.GetType(selected_block), name.ToString());
-            //TO DO DYNAMIC NAMES -> THIS IS ONLY A TEMP SMALL FIX
             name++;
             block_list.Add(ob);
         }
 
-
-        //MAIN GC TIMER-> I HAVE NO IDEA WHICH LOOP IS GOOD / the other one is obsolete 
         private void GC_timer2_Tick(object sender, EventArgs e)
         {
              foreach (dynamic graf in block_list)
@@ -119,22 +106,13 @@ namespace DataLab
 
         }
 
-
-
-        // Main linking function
         public static void Link_objects()
         {
             Console.WriteLine("Link!");
             if (next_sockiet != null && previous_sockiet != null)
             {
-                //next_sockiet.Disconnect_Input();
-                //previous_sockiet.Disconnect_Output();
-
                 Link link = new Link(previous_sockiet, next_sockiet);
-                /*
-                next_sockiet.previous_s = previous_sockiet;
-                previous_sockiet.next_s = next_sockiet;
-                */
+
                 link_list.Add(link);
 
                 System.Threading.Thread.Sleep(100);
@@ -144,8 +122,6 @@ namespace DataLab
             }
         }
 
-
-        //Function for creating timers yay!
         public static void Create_timer(int interval, EventHandler function)
         {
             System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
@@ -154,7 +130,6 @@ namespace DataLab
             dispatcherTimer.Start();
         }
 
-        //TIMER FOR MOVING
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
             foreach(Blocks.Basic_block t in block_list)
@@ -163,14 +138,11 @@ namespace DataLab
             }
         }
 
-        //Changes selected block that we wanna spawn
         private void block_listbox1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             selected_block = "DataLab.Blocks+" + block_listbox1.SelectedItem.ToString();
         }
 
-
-        //Shows object present in blocks list
         private void DEBUG_Click(object sender, RoutedEventArgs e)
         {
             foreach(dynamic dy in block_list)
@@ -187,33 +159,11 @@ namespace DataLab
             }
         }
 
-
         private void MainWindow1_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
             Console.WriteLine("Clear!");
             next_sockiet = null;
             previous_sockiet = null;
-        }
-
-        private void DEBUG_dynaic_Click(object sender, RoutedEventArgs e)
-        {
-            /*Assembly myAssembly = Assembly.GetExecutingAssembly();
-            foreach (Type type in myAssembly.GetTypes())
-            {
-                if(type.BaseType==typeof(Blocks.Basic_block))
-                {
-                    Console.WriteLine(type.Name);
-                }
-                
-            }*/
-
-            //Settings.Box set_box = new Box();
-
-           /* Console.WriteLine();
-            foreach (Module m in myAssembly.Modules)
-            {
-                Console.WriteLine(m);
-            }*/
         }
     }
 }

@@ -17,7 +17,6 @@ using DataLab;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-//ing static New_framework_test.Input_blocks;
 using static DataLab.Blocks;
 using System.Reflection;
 
@@ -69,11 +68,6 @@ namespace DataLab
             }
 
         }
-
-
-
-
-
 
         public partial class OptionField
         {
@@ -127,11 +121,6 @@ namespace DataLab
             }
 
         }
-
-
-
-
-
 
         public class Box
         {

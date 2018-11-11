@@ -88,9 +88,6 @@ namespace DataLab
 
             public void GetSettings()
             {
-               // serial_port.Dispose();
-               // serial_port.Close();
-
                 Console.WriteLine();
                 Dictionary<string, string> settings = settings_box.GetSettings();
                 Console.WriteLine(settings["Port name"]);
@@ -102,17 +99,6 @@ namespace DataLab
                 Console.WriteLine("Port open");
             }
 
-            /*
-            public void Output_function(string input)
-            {
-                // if (next_block != null)
-                // {
-                output_ref.Input_function(input);
-                // }
-            }
-            */
-
-
             public void Setting_button_click(object sender, EventArgs e)
             {
                  
@@ -120,24 +106,7 @@ namespace DataLab
                 {
                     serial_port.Close();
                 }
-                /*
-                string[] ports = System.IO.Ports.SerialPort.GetPortNames();
-
-                foreach(string p in ports)
-                {
-                    Console.WriteLine(p);
-                }
-                */
                 SetSettings();
-              //  GetSettings();
-
-               // serial_port = new System.IO.Ports.SerialPort("COM9");
-
-              //  serial_port.BaudRate = 9600;
-              //  serial_port.DataBits = 8;
-              //  serial_port.StopBits = System.IO.Ports.StopBits.One;
-
-               // serial_port.Open();
             }
 
 
@@ -157,8 +126,6 @@ namespace DataLab
 
         public class Console_output : Basic_block
         {
-
-            //  public input_sockiet input_io;
             protected input_sockiet.parent_function funct_ref;
 
             /// <summary>
@@ -166,8 +133,6 @@ namespace DataLab
             /// </summary>
             public Console_output(string input) : base(input, block_type.Output)
             {
-                //  groupBox.Header = "Console output " + " Component";
-
                 funct_ref = new input_sockiet.parent_function(Input_function);
 
                 input_io = new input_sockiet(this, info.Input_info, ref funct_ref);
@@ -182,10 +147,7 @@ namespace DataLab
 
             public void Output_function(string input)
             {
-                // if (next_block != null)
-                // {
                 output_ref.Input_function(input);
-                // }
             }
 
             public override void Render(double X, double Y)

@@ -14,6 +14,5 @@
         <Button x:Name="Add" Content="Add component" HorizontalAlignment="Left" Height="40" VerticalAlignment="Top" Width="108" Click="Button_Click_1" Margin="10,10,0,0"/>
         <ListBox x:Name="block_listbox1" HorizontalAlignment="Left" Height="100" Margin="18,69,0,0" VerticalAlignment="Top" Width="148" SelectionChanged="block_listbox1_SelectionChanged"/>
         <Button x:Name="DEBUG" Content="Debug(obj list)" HorizontalAlignment="Left" Height="40" VerticalAlignment="Top" Width="108" Margin="18,199,0,0" Click="DEBUG_Click"/>
-        <Button x:Name="DEBUG_dynaic" Content="Debug(dynamic dll)" HorizontalAlignment="Left" Height="40" VerticalAlignment="Top" Width="108" Margin="18,262,0,0" Click="DEBUG_dynaic_Click"/>
     </Grid>
 </Window>
