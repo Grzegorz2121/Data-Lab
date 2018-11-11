@@ -1,0 +1,177 @@
+﻿
+
+
+
+
+/*
+
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using static DataLab.Program;
+using static DataLab.Blocks;
+using System.Reflection;
+
+namespace DataLab
+{
+    public partial class Form1_obj : Form
+    {
+        static string author = "CODE made by Grzegorz Machura (Grzegorz2121, Poland, Dolnyśląsk, I LO w Jaworze)";
+
+        public static List<dynamic> object_list = new List<dynamic>();
+
+        public string application_path = Assembly.GetExecutingAssembly().CodeBase;
+
+        public int name = 0;
+
+        public static string selected_block;
+
+        public static bool input_ready = false;
+        public static bool output_ready = false;
+
+        public static string input_name = "";
+        public static string output_name = "";
+
+        public static dynamic next_block_ref;
+        public static dynamic previous_block_ref;
+
+        /*
+        Dictionary<string, BaseViewModel> TypesList = new Dictionary<string, BaseViewModel>();
+        TypesList.Add("Products", new ProductsViewModel());
+            TypesList.Add("Categories", new CategoriesViewModel());
+            TypesList.Add("Customers", new CustomersViewModel());
+
+            string type = "Products";
+        BaseViewModel viewModel = TypesList[type]();
+        */
+/*
+        public Form1_obj()
+        {
+
+            InitializeComponent();
+            //block_listbox1.Items.Add("DataLab.Blocks+Add_string");
+            //block_listbox1.Items.Add("DataLab.Blocks+Console_output");
+            //block_listbox1.Items.Add("DataLab.Blocks+Debug_string");
+            block_listbox1.Items.Add("Add_string");
+            block_listbox1.Items.Add("Console_output");
+            block_listbox1.Items.Add("Debug_string");
+            block_listbox1.Items.Add("While_Loop");
+            Console.WriteLine(application_path);
+        }
+
+        private void Move_timer1_Tick(object sender, EventArgs e)
+        {
+            foreach (dynamic graf in object_list)
+            {
+                if (graf.is_movable == true)
+                {
+                    graf.Move();
+                }
+            }
+        }
+
+
+
+
+        private void GC_timer2_Tick(object sender, EventArgs e)
+        {
+            /* foreach (dynamic graf in object_list)
+             {
+                 if (graf.is_ded == true)
+                 {
+                     graf.Dispose();
+                     object_list.Remove(graf);
+                     Console.WriteLine("RIP");
+                     break;
+                 }
+             }*/
+/*
+            for (int i = 0; i < object_list.Count; i++)
+            {
+                if (object_list[i].is_ded == true)
+                {
+                    object_list[i].Disconnect();
+                    object_list[i].Dispose();
+                    object_list[i] = null;
+                    object_list.Remove(object_list[i]);
+                    Console.WriteLine("RIP");
+                    break;
+                }
+            }
+
+        }
+
+        private void Linker_timer3_Tick(object sender, EventArgs e)
+        {
+            Link_objects();
+        }
+
+        public void Link_objects()
+        {
+            /* if(output_ready==true && input_ready==true)
+             {
+                 foreach(dynamic input in object_list)
+                 {
+                     if (input.name == input_name)
+                     {
+                         foreach (dynamic output in object_list)
+                         {
+                             if (output.name == output_name)
+                             {
+                                 output.SetOnput_ref(ref input);
+                                 input.SetInput_ref(ref output);
+
+                                 //output.output_ref = input;
+
+                                 input_name = "";
+                                 output_name = "";
+
+                                 output_ready = false;
+                                 input_ready = false;
+                             }
+
+                         }
+                     }
+
+                 }
+
+
+             }
+/*
+            if (next_block_ref != null && previous_block_ref != null)
+            {
+                next_block_ref.SetInput_ref(ref previous_block_ref);
+                previous_block_ref.SetOutput_ref(ref next_block_ref);
+                next_block_ref = null;
+                previous_block_ref = null;
+            }
+        }
+
+        private void Start_button_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Create_processing_object_button_Click(object sender, EventArgs e)
+        {
+            dynamic ob = Activator.CreateInstance(Type.GetType(selected_block), name.ToString());
+            name++;
+            object_list.Add(ob);
+        }
+
+        private void block_listbox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            selected_block = "DataLab.Blocks+" + block_listbox1.SelectedItem.ToString();
+        }
+
+    }
+
+}
+
+    */

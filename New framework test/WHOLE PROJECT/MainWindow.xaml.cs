@@ -17,12 +17,11 @@ using DataLab;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-//ing static New_framework_test.Input_blocks;
+
 using static DataLab.Blocks;
 using System.Reflection;
-using static DataLab.Settings;
 
-namespace DataLab
+namespace New_framework_test
 {
     /*
 
@@ -44,7 +43,6 @@ namespace DataLab
         public enum block_type { Input, Output, Processing, Flow };
 
         public static List<dynamic> block_list = new List<dynamic>(); // MAIN BLOCK LIST!
-        public static List<dynamic> link_list = new List<dynamic>();
 
         public static Window MainWindow_ref;
         public static Grid MainGrid_ref;
@@ -64,20 +62,16 @@ namespace DataLab
             MainGrid_ref = MainGrid;
 
             //timer for GC and move , TO DO change names 
-            Create_timer(10, dispatcherTimer_Tick);
+            Create_timer(100, dispatcherTimer_Tick);
             Create_timer(100, GC_timer2_Tick);
 
-            Assembly myAssembly = Assembly.GetExecutingAssembly();
-            foreach (Type type in myAssembly.GetTypes())
-            {
-                if (type.BaseType == typeof(Blocks.Basic_block))
-                {
-                    Console.WriteLine(type.Name);
-                    block_listbox1.Items.Add(type.Name.ToString());
-                }
-
-            }
-
+            //I want to do it dynamicaly but i don't think i can do it, maybe as a external file? now it's easier to put it here, or maybe wrap in class like button infos
+            block_listbox1.Items.Add("Add_string");
+            block_listbox1.Items.Add("Console_output");
+            block_listbox1.Items.Add("Debug_string");
+            block_listbox1.Items.Add("While_Loop");
+            block_listbox1.Items.Add("For_Every");
+            block_listbox1.Items.Add("ReadLines");
         }
 
         //Spawns blocks and adds them to list in order to activate their move command and dispose then and ect
@@ -124,20 +118,14 @@ namespace DataLab
         // Main linking function
         public static void Link_objects()
         {
-            Console.WriteLine("Link!");
+
             if (next_sockiet != null && previous_sockiet != null)
             {
                 //next_sockiet.Disconnect_Input();
                 //previous_sockiet.Disconnect_Output();
 
-                Link link = new Link(previous_sockiet, next_sockiet);
-                /*
                 next_sockiet.previous_s = previous_sockiet;
                 previous_sockiet.next_s = next_sockiet;
-                */
-                link_list.Add(link);
-
-                System.Threading.Thread.Sleep(100);
 
                 next_sockiet = null;
                 previous_sockiet = null;
@@ -150,7 +138,7 @@ namespace DataLab
         {
             System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
             dispatcherTimer.Tick += function;
-            dispatcherTimer.Interval = TimeSpan.FromMilliseconds(interval);
+            dispatcherTimer.Interval = TimeSpan.FromMilliseconds(10);
             dispatcherTimer.Start();
         }
 
@@ -177,43 +165,7 @@ namespace DataLab
             {
                 Console.WriteLine(dy);
             }
-            foreach (dynamic dy in MainGrid_ref.Children)
-            {
-                Console.WriteLine(dy);
-            }
-            foreach (dynamic dy in link_list)
-            {
-                Console.WriteLine(dy);
-            }
-        }
-
-
-        private void MainWindow1_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            Console.WriteLine("Clear!");
-            next_sockiet = null;
-            previous_sockiet = null;
-        }
-
-        private void DEBUG_dynaic_Click(object sender, RoutedEventArgs e)
-        {
-            /*Assembly myAssembly = Assembly.GetExecutingAssembly();
-            foreach (Type type in myAssembly.GetTypes())
-            {
-                if(type.BaseType==typeof(Blocks.Basic_block))
-                {
-                    Console.WriteLine(type.Name);
-                }
-                
-            }*/
-
-            //Settings.Box set_box = new Box();
-
-           /* Console.WriteLine();
-            foreach (Module m in myAssembly.Modules)
-            {
-                Console.WriteLine(m);
-            }*/
+            
         }
     }
 }
